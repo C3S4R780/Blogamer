@@ -9,14 +9,24 @@
     position: fixed;
     bottom: 10px;
     left: 15px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+    display: flex;
+    padding: 0;
+    background-color: var(--white);
     font-size: 3em;
     color: var(--black);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
     transform: rotateY(0deg);
+    box-shadow:
+        1px 1px 0px 1px var(--white),
+        -1px 1px 0px 1px var(--white),
+        1px -1px 0px 1px var(--white),
+        -1px -1px 0px 1px var(--white);
 }
 .dark_btn.dark {
+    background-color: var(--black);
     color: var(--white);
     transform: rotateY(180deg);
+    box-shadow: none;
 }
