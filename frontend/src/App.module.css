@@ -1,0 +1,22 @@
+.main_container {
+    /* width: 100%; */
+    max-width: 1024px;
+    padding: 0 6em;
+    margin: 0 auto;
+}
+.dark_btn {
+    transition: all .3s ease;
+    position: fixed;
+    bottom: 10px;
+    left: 15px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 3em;
+    color: var(--black);
+    transform: rotateY(0deg);
+}
+.dark_btn.dark {
+    color: var(--white);
+    transform: rotateY(180deg);
+}

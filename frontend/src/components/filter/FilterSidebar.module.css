@@ -1,0 +1,33 @@
+.filter_sidebar {
+    position: sticky;
+    top: 150px;
+    left: 0;
+    background-color: #FFF;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    border-radius: 6px;
+    padding: 15px;
+}
+.filter_sidebar.dark {
+    background-color: var(--dark-gray);
+}
+.filter_sidebar h2 {
+    margin: 0 0 15px;
+}
+.filter_sidebar_list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.filter_sidebar_list li {
+    border-bottom: 1px solid rgba(150,150,150,.2);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.filter_sidebar_list li a {
+    transition: margin .3s ease;
+    text-decoration: none;
+    color: inherit;
+}
+.filter_sidebar_list li a:hover {
+    margin-left: 4px;
+}
