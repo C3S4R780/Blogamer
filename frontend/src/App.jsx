@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import style from "./App.module.css"
 
 import Home from "./components/pages/Home";
@@ -17,10 +18,6 @@ function App() {
     localStorage.setItem('dark', JSON.stringify(false))
 
   const [dark, setDark] = useState(JSON.parse(localStorage.getItem('dark')))
-  const toggleDark = () => {
-    setDark(!dark)
-    // window.location.reload()
-  }
 
   useEffect(() => {
     localStorage.setItem('dark', JSON.stringify(dark))
@@ -32,10 +29,7 @@ function App() {
     <Router>
       <Header />
       <main className={style.main_container}>
-        <button
-          onClick={toggleDark}
-          className={`${style.dark_btn} ${dark && style.dark}`}
-        >
+        <button onClick={() => setDark(!dark)} className={`${style.dark_btn} ${dark && style.dark}`}>
           <FaCircleHalfStroke />
         </button>
         <Routes>
