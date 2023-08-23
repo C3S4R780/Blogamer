@@ -17,6 +17,9 @@
   background-color: var(--red);
   border-radius: 100px
 }
+html, body {
+  scroll-behavior: smooth;
+}
 body {
   transition: all .3s ease;
   margin: 0;
