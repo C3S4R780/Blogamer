@@ -1,3 +1,7 @@
+.post_container {
+    display: flex;
+    gap: 2em;
+}
 .post_back {
     transition: all .3s ease;
     display: inline-flex;
@@ -87,17 +91,6 @@
     color: var(--blue);
     text-decoration: none;
 }
-.post_content a::after {
-    content: "";
-    transition: all .3s ease;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    /* display: inline-block; */
-    width: 0%;
-    height: 2px;
-    background-color: var(--blue);
-}
-.post_content a:hover::after {
-    width: 100%;
+.post_content a:hover {
+    text-decoration: underline;
 }
