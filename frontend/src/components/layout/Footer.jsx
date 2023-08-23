@@ -1,8 +1,14 @@
 import style from './Footer.module.css'
+import { useLocation } from "react-router-dom";
 
 function Footer() {
+  const location = useLocation()
+  const hide = location.pathname === "/login" ? true : false
+
   return (
-    <div className={style.footer}>Footer</div>
+    <footer className={`${style.footer} ${hide && style.hide}`}>
+      Footer
+    </footer>
   )
 }
 
