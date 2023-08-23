@@ -1,0 +1,21 @@
+.form_input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    font-size: 22px;
+}
+.form_input input {
+    transition: all .3s ease;
+    font-size: 18px;
+    color: var(--white);
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--red);
+    outline: none !important;
+    margin-top: 10px;
+    min-width: 300px;
+}
+.form_input input:focus,
+.form_input input:active {
+    border-color: var(--blue);
+}

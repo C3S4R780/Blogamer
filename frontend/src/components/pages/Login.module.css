@@ -1,0 +1,26 @@
+.login {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 80vh;
+    justify-content: space-around;
+    align-items: center;
+}
+.login::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+    display: block;
+    width: 50%;
+    height: 2px;
+    background-color: var(--red);
+}
+.login_bg {
+    position: fixed;
+    top: 0;
+    left: -30px;
+    z-index: -1;
+    filter: blur(8px) brightness(45%);
+}
