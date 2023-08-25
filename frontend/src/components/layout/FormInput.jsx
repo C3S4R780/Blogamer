@@ -8,7 +8,6 @@ function FormInput({ text, type, name, required=false }) {
         </label>
         <input
             type={type}
-            id={name}
             name={name}
             required={required}
         />
