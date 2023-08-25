@@ -6,7 +6,7 @@ import { FaArrowRight } from "react-icons/fa6"
 function PostCard({ post, dark }) {
   const thumbnail =
     post.attributes.thumbnail.data ?
-    `http://localhost:1337${post.attributes.thumbnail.data.attributes.formats.small.url}` :
+    `http://localhost:1338${post.attributes.thumbnail.data.attributes.formats.small.url}` :
     "/no-image.png"
 
   return (

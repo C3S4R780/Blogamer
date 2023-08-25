@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { API } from '../../constant'
 import style from './Platform.module.css'
 import PostCard from '../posts/PostCard'
 
@@ -8,7 +9,7 @@ function Platform({ dark }) {
   const { platformName } = useParams()
 
   useEffect(() => {
-    fetch(`http://localhost:1337/api/posts?filters[$and][0][platforms][name][$containsi]=${platformName}&populate=*`, {
+    fetch(`${API}/posts?filters[$and][0][platforms][name][$containsi]=${platformName}&populate=*`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"

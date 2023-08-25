@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import style from "./FilterSidebar.module.css"
+import { API } from "../../constant"
 
 function FilterSidebar({ dark }) {
   const [platforms, setPlatforms] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:1337/api/platforms/", {
+    fetch(`${API}/platforms/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"

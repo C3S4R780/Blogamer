@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+import { API } from '../../constant'
 import style from './Post.module.css'
 
 import ShareSidebar from '../filter/ShareSidebar'
@@ -12,7 +13,7 @@ function Post() {
   const { postId } = useParams()
 
   useEffect(() => {
-    fetch(`http://localhost:1337/api/posts/${postId}?populate=*`, {
+    fetch(`${API}/posts/${postId}?populate=*`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -29,7 +30,7 @@ function Post() {
 
   const thumbnail =
     post.thumbnail?.data ?
-    `http://localhost:1337${post.thumbnail.data.attributes.url}` :
+    `http://localhost:1338${post.thumbnail.data.attributes.url}` :
     "/no-image.png"
 
   return (
