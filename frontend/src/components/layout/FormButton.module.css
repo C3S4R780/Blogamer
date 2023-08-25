@@ -12,3 +12,9 @@
     background-color: var(--white);
     color: var(--red);
 }
+.form_button.loading {
+    animation: spin 3s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg) }
+}

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import style from "./App.module.css"
 
+import AuthProvider from "./components/AuthProvider";
 import Home from "./components/pages/Home";
 import Post from "./components/pages/Post"
 import Login from "./components/pages/Login"
@@ -26,21 +27,23 @@ function App() {
   }, [dark])
 
   return (
-    <Router>
-      <Header />
-      <main className={style.main_container}>
-        <button onClick={() => setDark(!dark)} className={`${style.dark_btn} ${dark && style.dark}`}>
-          <FaCircleHalfStroke />
-        </button>
-        <Routes>
-          <Route path="/" element={<Home dark={dark} />} />
-          <Route path="/post/:postId" element={<Post />} />
-          <Route path="/platform/:platformName" element={<Platform dark={dark} />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </main>
-      <Footer />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Header />
+        <main className={style.main_container}>
+          <button onClick={() => setDark(!dark)} className={`${style.dark_btn} ${dark && style.dark}`}>
+            <FaCircleHalfStroke />
+          </button>
+          <Routes>
+            <Route path="/" element={<Home dark={dark} />} />
+            <Route path="/post/:postId" element={<Post />} />
+            <Route path="/platform/:platformName" element={<Platform dark={dark} />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </main>
+        <Footer />
+      </Router>
+    </AuthProvider>
   );
 }
 
