@@ -17,6 +17,9 @@ function Platform({ dark }) {
     })
     .then(resp => resp.json())
     .then(data => setPlatform(data.data))
+    .then(() => {
+      document.title = platformName ? `Blogamer - ${platformName}` : "Carregando..."
+    })
     .catch(err => console.error(err.message))
   }, [platformName])
 

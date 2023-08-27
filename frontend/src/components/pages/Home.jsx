@@ -6,7 +6,7 @@ import FilterSidebar from '../filter/FilterSidebar';
 import Posts from '../posts/Posts';
 
 function Home({ dark }) {
-  document.title = "Home - Blogamer"
+  document.title = "Blogamer"
   const [posts, setPosts] = useState()
 
   useEffect(() => {

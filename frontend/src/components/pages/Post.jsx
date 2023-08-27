@@ -21,11 +21,10 @@ function Post() {
     })
     .then(resp => resp.json())
     .then(data => setPost(data.data.attributes))
+    .then(() => {
+      document.title = post.title ? `Blogamer - ${post.title}` : "Carregando..."
+    })
     .catch(err => console.error(err.message))
-  }, [postId])
-
-  useEffect(() => {
-    document.title = post.title ? post.title + " - Blogamer" : "Carregando..."
   }, [postSlug, post.title])
 
   const thumbnail =
