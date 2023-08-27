@@ -9,7 +9,7 @@ function Platform({ dark }) {
   const { platformName } = useParams()
 
   useEffect(() => {
-    fetch(`${API}/posts?filters[$and][0][platforms][name][$containsi]=${platformName}&populate=*`, {
+    fetch(`${API}/posts?filters[$and][0][platforms][slug][$contains]=${platformName}&populate=*`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"

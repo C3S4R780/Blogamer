@@ -10,10 +10,10 @@ import { FaArrowLeft } from 'react-icons/fa6'
 
 function Post() {
   const [post, setPost] = useState([])
-  const { postId } = useParams()
+  const { postSlug } = useParams()
 
   useEffect(() => {
-    fetch(`${API}/posts/${postId}?populate=*`, {
+    fetch(`${API}/posts/${postSlug}?populate=*`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -26,7 +26,7 @@ function Post() {
 
   useEffect(() => {
     document.title = post.title ? post.title + " - Blogamer" : "Carregando..."
-  }, [post.title])
+  }, [postSlug, post.title])
 
   const thumbnail =
     post.thumbnail?.data ?
@@ -55,7 +55,7 @@ function Post() {
           <div className={style.post_platforms}>
             <h3>Plataformas:</h3>
             {post.platforms && post.platforms?.data.map(platform => (
-              <Link key={`platform-${platform.id}`} to={`/platform/${platform.attributes.name.toLowerCase()}`}>
+              <Link key={`platform-${platform.id}`} to={`/platform/${platform.attributes.name}`}>
                 {platform.attributes.name}
               </Link>
             ))}

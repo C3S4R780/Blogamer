@@ -38,7 +38,7 @@ function App() {
           </button>
           <Routes>
             <Route path="/" element={<Home dark={dark} />} />
-            <Route path="/post/:postId" element={<Post />} />
+            <Route path="/post/:postSlug" element={<Post />} />
             <Route path="/platform/:platformName" element={<Platform dark={dark} />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />
