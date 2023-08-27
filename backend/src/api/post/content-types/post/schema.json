@@ -37,11 +37,15 @@
     "author": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "admin::user"
+      "target": "plugin::users-permissions.user"
     },
     "excerpt": {
       "type": "string",
       "maxLength": 150
+    },
+    "slug": {
+      "type": "string",
+      "unique": true
     }
   }
 }
