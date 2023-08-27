@@ -60,7 +60,12 @@ function Post() {
             ))}
           </div>
           <div className={style.post_author}>
-            <h3>Por C3S4R780</h3>
+            <h3>
+              Por
+              <Link to={`/author/${post.author?.data?.attributes.slug}`}>
+                {post.author?.data?.attributes.username}
+              </Link>
+            </h3>
           </div>
         </div>
         <div className={style.post_content}>
