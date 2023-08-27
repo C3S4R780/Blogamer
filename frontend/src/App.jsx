@@ -7,10 +7,12 @@ import AuthProvider from "./components/AuthProvider";
 import Home from "./components/pages/Home";
 import Post from "./components/pages/Post"
 import Login from "./components/pages/Login"
+import Profile from "./components/pages/Profile"
+import Platform from "./components/pages/Platform";
+import PageNotFound from "./components/pages/PageNotFound";
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer"
-import Platform from "./components/pages/Platform";
 
 import { FaCircleHalfStroke } from "react-icons/fa6"
 
@@ -39,6 +41,7 @@ function App() {
             <Route path="/post/:postId" element={<Post />} />
             <Route path="/platform/:platformName" element={<Platform dark={dark} />} />
             <Route path="/login" element={<Login />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </main>
         <Footer />
