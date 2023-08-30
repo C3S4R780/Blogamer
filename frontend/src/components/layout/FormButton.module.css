@@ -12,7 +12,7 @@
     background-color: var(--white);
     color: var(--red);
 }
-.form_button.loading {
+.form_button.loading svg {
     animation: spin 3s linear infinite;
 }
 @keyframes spin {
