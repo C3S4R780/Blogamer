@@ -10,7 +10,7 @@ function Home({ dark }) {
   const [posts, setPosts] = useState()
 
   useEffect(() => {
-    fetch(`${API}/posts?populate=*`, {
+    fetch(`${API}/posts?sort=id:DESC&populate=*`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
