@@ -27,15 +27,15 @@ function Header() {
             <Link to={"/"}>Home</Link>
           </li>
           <li>
-            <Link to={"/plataformas"}>Plataformas</Link>
+            <Link to={"/platforms"}>Plataformas</Link>
           </li>
           <li>
-            <Link to={"/autores"}>Autores</Link>
+            <Link to={"/authors"}>Autores</Link>
           </li>
           {user ? (
             <>
               <li>
-                <Link to="/perfil">{user.username}</Link>
+                <Link to="/profile">{user.username}</Link>
               </li>
               <li>
                 <button onClick={handleLogout}>Sair</button>
