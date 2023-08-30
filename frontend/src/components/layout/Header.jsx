@@ -4,13 +4,17 @@ import { removeToken } from "../../helper";
 import style from './Header.module.css'
 
 function Header() {
-  const { user } = useAuthContext();
+  const { user, setUser } = useAuthContext();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    removeToken();
-    navigate("/login", { replace: true });
+    if (window.confirm("Deseja realmente sair ?")) {
+      removeToken()
+      setUser(undefined)
+      navigate("/login", { replace: true })
+    }
   };
+
   return (
     <header className={style.header}>
       <div className={style.header_content}>
