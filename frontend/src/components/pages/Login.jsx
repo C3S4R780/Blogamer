@@ -10,7 +10,7 @@ function Login() {
   const { user } = useAuthContext()
 
   if (user) {
-    navigate("/perfil", { replace: true })
+    navigate("/profile", { replace: true })
   }
   return (
     <div className={style.login}>
