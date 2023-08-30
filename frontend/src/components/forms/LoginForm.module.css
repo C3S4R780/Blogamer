@@ -23,3 +23,10 @@
 .login_form a:hover {
     color: var(--white);
 }
+.login_form_error {
+    background-color: rgba(255,0,0,.4);
+    color: var(--white);
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 1em;
+}
