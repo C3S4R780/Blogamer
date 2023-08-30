@@ -41,6 +41,7 @@ function App() {
             <Route path="/post/:postSlug" element={<Post />} />
             <Route path="/platform/:platformName" element={<Platform dark={dark} />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </main>
