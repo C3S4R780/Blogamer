@@ -13,7 +13,7 @@ function PageNotFound() {
             setTimeout(() => setSeconds(seconds - 1), 1000)
         :
             navigate('/', { replace:true })
-      }, [seconds]);
+      });
     return (
         <div className={style.page_not_found}>
             <h1>404</h1>
