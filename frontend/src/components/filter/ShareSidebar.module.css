@@ -29,8 +29,8 @@
     content: "Link copiado!";
     transition: right .3s ease;
     position: fixed;
-    bottom: 5%;
-    right: -20%;
+    bottom: 10%;
+    right: -215px;
     display: block;
     background-color: var(--white);
     color: var(--black);
