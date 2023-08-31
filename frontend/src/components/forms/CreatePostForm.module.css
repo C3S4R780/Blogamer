@@ -1,0 +1,21 @@
+.create_post_form {
+    background-color: var(--white);
+    border: 2px solid var(--red);
+    border-radius: 8px;
+    padding: 25px;
+}
+.create_post_form.dark {
+    background-color: var(--dark-gray);
+}
+.create_post_form_title h2 {
+    text-align: center;
+    margin: 0 0 1em;
+    font-size: 2em;
+}
+.create_post_form_overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background-color: rgba(0,0,0,.8);
+}

@@ -10,6 +10,7 @@ import Login from "./components/pages/Login"
 import Profile from "./components/pages/Profile"
 import Platform from "./components/pages/Platform";
 import PageNotFound from "./components/pages/PageNotFound";
+import CreatePost from "./components/posts/CreatePost";
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer"
@@ -33,9 +34,6 @@ function App() {
       <Router>
         <Header />
         <main className={style.main_container}>
-          <button onClick={() => setDark(!dark)} className={`${style.dark_btn} ${dark && style.dark}`}>
-            <FaCircleHalfStroke />
-          </button>
           <Routes>
             <Route path="/" element={<Home dark={dark} />} />
             <Route path="/post/:postSlug" element={<Post />} />
@@ -46,6 +44,10 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <button onClick={() => setDark(!dark)} className={`${style.dark_btn} ${dark && style.dark}`}>
+          <FaCircleHalfStroke />
+        </button>
+        <CreatePost dark={dark}/>
       </Router>
     </AuthProvider>
   );

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+import { Markup } from 'react-render-markup';
+
 import { API } from '../../constant'
 import style from './Post.module.css'
 
@@ -69,9 +70,7 @@ function Post() {
           </div>
         </div>
         <div className={style.post_content}>
-          <ReactMarkdown>
-            {post.content}
-          </ReactMarkdown>
+          <Markup markup={post.content} />
         </div>
       </div>
       <div>

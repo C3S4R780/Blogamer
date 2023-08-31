@@ -10,9 +10,11 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-markdown": "^8.0.7",
+    "react-quill": "^2.0.0",
+    "react-render-markup": "^3.6.1",
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
-    "strip-markdown": "^5.0.1",
+    "react-select": "^5.7.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
