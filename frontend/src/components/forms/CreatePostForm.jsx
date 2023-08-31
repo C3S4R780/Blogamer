@@ -40,11 +40,11 @@ function CreatePostForm({ dark, setOpen }) {
     let postData = {'data':{}}
 
     formData.forEach((value, key) => {
-      if (key === "platforms") {
-        postData['data'][key] = JSON.parse(value)
-      } else {
+      //if (key === "platforms") {
+        //postData['data'][key] = JSON.parse(value)
+      //} else {
         postData['data'][key] = value
-      }
+      //}
     })
 
     try {
@@ -93,6 +93,12 @@ function CreatePostForm({ dark, setOpen }) {
           placeholder="Titulo do post"
           required
         />
+        <FormInput 
+          type="text"
+          name="excerpt"
+          placeholder="Pequena descrição do post..."
+        />
+
         <FormMultiSelect
           placeholder="Plataformas..."
           options={platforms}
