@@ -107,7 +107,7 @@ function CreatePostForm({ dark, setOpen }) {
         <FormInput
           type="hidden"
           name="platforms"
-          value={selectedPlatforms}
+          value={`[${selectedPlatforms}]`}
           required
         />
         <PostContentEditor handleContent={setContent}/>
