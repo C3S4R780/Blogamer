@@ -45,7 +45,7 @@ function Post() {
         </div>
         {post.excerpt && (
           <div className={style.post_excerpt}>
-            <q>{post.excerpt}</q>
+            <p>{post.excerpt}</p>
           </div>
         )}
         <div className={style.post_thumbnail}>

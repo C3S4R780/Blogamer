@@ -30,7 +30,7 @@
     text-align: center;
     margin-bottom: 25px;
 }
-.post_excerpt q {
+.post_excerpt p {
     font-style: italic;
     color: gray;
 }
