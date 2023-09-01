@@ -76,7 +76,7 @@ function CreatePostForm({ dark, setOpen }) {
   }
   return (
     <>
-      <form className={`${style.create_post_form} ${dark && style.dark}`} onSubmit={handleSubmit}>
+      <form autoComplete="off" className={`${style.create_post_form} ${dark && style.dark}`} onSubmit={handleSubmit}>
         <div className={style.create_post_form_title}>
           <h2>Criar post</h2>
         </div>
