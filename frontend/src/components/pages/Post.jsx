@@ -39,7 +39,7 @@ function Post() {
       }
     }
     fetchPost()
-  }, [postSlug, post.title])
+  }, [navigate, postSlug, post.title])
 
   const thumbnail =
     post.thumbnail?.data ?
