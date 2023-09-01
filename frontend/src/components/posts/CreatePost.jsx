@@ -14,8 +14,10 @@ function CreatePost({ dark }) {
     if (user && user?.id !== 6) {
         return (
             <>
-                <button className={`${style.create_post} ${open && style.open}`}>
-                    <FaPlus onClick={() => setOpen(!open)} />
+                <button
+                    className={`${style.create_post} ${open && style.open}`}
+                    onClick={() => setOpen(!open)}>
+                    <FaPlus />
                 </button>
                 <div className={`${style.create_post_modal} ${open && style.open}`}>
                     <CreatePostForm dark={dark} setOpen={setOpen}/>
