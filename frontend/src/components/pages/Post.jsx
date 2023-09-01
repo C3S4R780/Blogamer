@@ -27,7 +27,10 @@ function Post() {
         const data = await response.json()
 
         if (data.error) {
-          navigate("/404", { replace: true })
+          data.error.status === 404 ?
+            navigate("/404", { replace: true })
+          :
+            console.error(data.error.message)
 
         } else {
           setPost(data.data.attributes)
