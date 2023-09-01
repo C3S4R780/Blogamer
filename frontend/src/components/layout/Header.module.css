@@ -68,6 +68,7 @@
     margin: 0 auto;
     background-color: var(--red);
 }
+.header_nav li a.active::after,
 .header_nav li a:hover::after,
 .header_nav li button:hover::after {
     width: 100%;

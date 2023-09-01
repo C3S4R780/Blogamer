@@ -1,4 +1,5 @@
-import { useNavigate, Link } from 'react-router-dom'
+import { useEffect } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useAuthContext } from "../../context/AuthContext";
 import { removeToken } from "../../helper";
 import style from './Header.module.css'
@@ -6,6 +7,7 @@ import style from './Header.module.css'
 function Header() {
   const { user, setUser } = useAuthContext();
   const navigate = useNavigate();
+  const location = useLocation()
 
   const handleLogout = () => {
     if (window.confirm("Deseja realmente sair ?")) {
@@ -14,6 +16,24 @@ function Header() {
       navigate("/login", { replace: true })
     }
   };
+
+  useEffect(() => {
+    const currentPage = location.pathname.split("/")[1]
+
+    setTimeout(() => {
+      document.querySelectorAll("header ul li a").forEach(link => {
+        const linkUrl = link.href.split("/")[3]
+
+        if (currentPage === linkUrl) {
+          link.classList.add(style.active)
+        } else {
+          link.classList.remove(style.active)
+        }
+
+      })
+    }, 100);
+
+  }, [location.pathname])
 
   return (
     <header className={style.header}>
