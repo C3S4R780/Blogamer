@@ -24,7 +24,7 @@ function FilterSidebar({ dark }) {
       <ul className={style.filter_sidebar_list}>
         {platforms.map(platform => (
           <li key={platform.id}>
-            <Link to={`/platform/${platform.attributes.name.toLowerCase()}`}>{platform.attributes.name}</Link>
+            <Link to={`/platforms/${platform.attributes.name.toLowerCase()}`}>{platform.attributes.name}</Link>
           </li>
         ))}
       </ul>

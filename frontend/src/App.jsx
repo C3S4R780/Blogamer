@@ -8,7 +8,7 @@ import Home from "./components/pages/Home";
 import Post from "./components/pages/Post"
 import Login from "./components/pages/Login"
 import Profile from "./components/pages/Profile"
-import Platform from "./components/pages/Platform";
+import Platforms from "./components/pages/Platforms";
 import PageNotFound from "./components/pages/PageNotFound";
 import CreatePost from "./components/posts/CreatePost";
 
@@ -37,7 +37,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home dark={dark} />} />
             <Route path="/post/:postSlug" element={<Post />} />
-            <Route path="/platform/:platformName" element={<Platform dark={dark} />} />
+            <Route path="/platforms/" element={<Platforms dark={dark} />} />
+            <Route path="/platforms/:platformName" element={<Platforms dark={dark} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<PageNotFound />} />

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { API } from '../../constant'
-import style from './Platform.module.css'
+import style from './Platforms.module.css'
 import PostCard from '../posts/PostCard'
 
 function Platform({ dark }) {
