@@ -1,9 +1,9 @@
 import Select from "react-select"
 import style from "./FormMultiSelect.module.css"
 
-function FormMultiSelect({ options=[], placeholder, onChange }) {
+function FormMultiSelect({ options=[], placeholder, value, onChange }) {
     const handleChange = (e) => {
-        onChange(Array.isArray(e) ? e.map(x => x.value) : [])
+        onChange(Array.isArray(e) ? e.map(x => x.value) : null)
     }
     let formattedOptions = []
     options.forEach((opt, i) => {
@@ -19,6 +19,7 @@ function FormMultiSelect({ options=[], placeholder, onChange }) {
                 options={formattedOptions}
                 placeholder={placeholder}
                 onChange={handleChange}
+                value={value && value.map(val => formattedOptions[val-1])}
                 className={style.form_multi_select}
             />
         </>

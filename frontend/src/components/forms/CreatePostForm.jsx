@@ -16,7 +16,7 @@ function CreatePostForm({ dark, setOpen }) {
   const authToken = getToken()
   const { user } = useAuthContext()
   const [platforms, setPlatforms] = useState()
-  const [selectedPlatforms, setSelectedPlatforms] = useState()
+  const [selectedPlatforms, setSelectedPlatforms] = useState(null)
   const [content, setContent] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -40,11 +40,11 @@ function CreatePostForm({ dark, setOpen }) {
     let postData = {'data':{}}
 
     formData.forEach((value, key) => {
-      //if (key === "platforms") {
-        //postData['data'][key] = JSON.parse(value)
-      //} else {
+      if (key === "platforms") {
+        postData['data'][key] = JSON.parse(value)
+      } else {
         postData['data'][key] = value
-      //}
+      }
     })
 
     try {
@@ -69,6 +69,8 @@ function CreatePostForm({ dark, setOpen }) {
     } finally {
       setIsLoading(false)
       setOpen(false)
+      setSelectedPlatforms(false)
+      setContent("")
       e.target.reset()
       navigate(`/post/${postData['data']['title'].replaceAll(" ", "-").toLowerCase()}`)
     }
@@ -102,6 +104,7 @@ function CreatePostForm({ dark, setOpen }) {
         <FormMultiSelect
           placeholder="Plataformas..."
           options={platforms}
+          value={selectedPlatforms}
           onChange={setSelectedPlatforms}
         />
         <FormInput
@@ -110,7 +113,7 @@ function CreatePostForm({ dark, setOpen }) {
           value={`[${selectedPlatforms}]`}
           required
         />
-        <PostContentEditor handleContent={setContent}/>
+        <PostContentEditor value={content} handleContent={setContent}/>
         <FormInput
           type="hidden"
           name="content"
