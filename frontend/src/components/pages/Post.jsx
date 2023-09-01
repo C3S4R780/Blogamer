@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Markup } from 'react-render-markup';
 
 import { API } from '../../constant'
@@ -10,22 +10,35 @@ import ShareSidebar from '../filter/ShareSidebar'
 import { FaArrowLeft } from 'react-icons/fa6'
 
 function Post() {
+  const navigate = useNavigate()
   const [post, setPost] = useState([])
   const { postSlug } = useParams()
 
   useEffect(() => {
-    fetch(`${API}/posts/${postSlug}?populate=*`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
+    const fetchPost = async () => {
+      try {
+        const response = await fetch(`${API}/posts/${postSlug}?populate=*`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+
+        const data = await response.json()
+
+        if (data.error) {
+          navigate("/404", { replace: true })
+
+        } else {
+          setPost(data.data.attributes)
+          document.title =`Blogamer - ${post.title}`
+
+        }
+      } catch (err) {
+        console.error(err)
       }
-    })
-    .then(resp => resp.json())
-    .then(data => setPost(data.data.attributes))
-    .then(() => {
-      document.title = post.title ? `Blogamer - ${post.title}` : "Carregando..."
-    })
-    .catch(err => console.error(err.message))
+    }
+    fetchPost()
   }, [postSlug, post.title])
 
   const thumbnail =
