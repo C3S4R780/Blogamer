@@ -71,7 +71,7 @@ function Post() {
           <div className={style.post_platforms}>
             <h3>Plataformas:</h3>
             {post.platforms && post.platforms?.data.map(platform => (
-              <Link key={`platform-${platform.id}`} to={`/platform/${platform.attributes.name}`}>
+              <Link key={`platforms-${platform.id}`} to={`/platforms/${platform.attributes.name}`}>
                 {platform.attributes.name}
               </Link>
             ))}
