@@ -11,6 +11,8 @@ import { API, BEARER } from "../../constant"
 import { getToken } from "../../helper"
 import FormMultiSelect from "../layout/FormMultiSelect"
 
+import { FaEdit } from "react-icons/fa"
+
 function CreatePostForm({ dark, setOpen }) {
   const navigate = useNavigate()
   const authToken = getToken()
@@ -18,6 +20,7 @@ function CreatePostForm({ dark, setOpen }) {
   const [platforms, setPlatforms] = useState()
   const [selectedPlatforms, setSelectedPlatforms] = useState(null)
   const [content, setContent] = useState('')
+  const [thumbnail, setThumbnail] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -46,35 +49,57 @@ function CreatePostForm({ dark, setOpen }) {
         postData['data'][key] = value
       }
     })
-
     try {
-      const response = await fetch(`${API}/posts/`, {
+      const thumbData = new FormData()
+      thumbData.append('files', thumbnail['file'])
+
+      const resp = await fetch(`${API}/upload`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           "Authorization": `${BEARER} ${authToken}`
         },
-        body: JSON.stringify(postData)
+        body: thumbData
       })
 
-      const data = await response.json()
+      const data = await resp.json()
 
-      if (data?.error) {
+      if (data?.error)
         throw data?.error
-      }
+
+      postData['data']['thumbnail'] = data[0].id
 
     } catch (err) {
-      console.error(err.message);
+      console.error(err)
 
     } finally {
-      setIsLoading(false)
-      setOpen(false)
-      setSelectedPlatforms(false)
-      setContent("")
-      e.target.reset()
-      navigate(`/post/${postData['data']['title'].replaceAll(" ", "-").toLowerCase()}`)
-    }
+      let postUrl = ""
 
+      try {
+        const resp = await fetch(`${API}/posts/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${BEARER} ${authToken}`
+          },
+          body: JSON.stringify(postData)
+        })
+
+        const data = await resp.json()
+        postUrl = `/post/${data.data.attributes.slug}`
+
+      } catch (err) {
+        console.error(err)
+
+      } finally {
+        setIsLoading(false)
+        setOpen(false)
+        setThumbnail(false)
+        setSelectedPlatforms(false)
+        setContent("")
+        e.target.reset()
+        navigate(postUrl)
+      }
+    }
   }
   return (
     <>
@@ -82,7 +107,6 @@ function CreatePostForm({ dark, setOpen }) {
         <div className={style.create_post_form_title}>
           <h2>Criar post</h2>
         </div>
-        {/* TODO: Excerpt and Thumbnail fields */}
         <FormInput
           type="hidden"
           name="author"
@@ -100,7 +124,23 @@ function CreatePostForm({ dark, setOpen }) {
           name="excerpt"
           placeholder="Pequena descrição do post..."
         />
-
+        <FormInput
+          type="file"
+          name="thumbnail"
+          text="Clique ou jogue a thumbnail aqui..."
+          accept="image/png, image/jpeg"
+          inlineStyle={{ display: thumbnail && "none"}}
+          onChange={setThumbnail}
+        />
+        {thumbnail && (
+          <div className={style.thumbnail_preview}>
+            <span>{thumbnail['name']}</span>
+            <img src={thumbnail['url']} alt="Post thumbnail" />
+            <label htmlFor="thumbnail" >
+              <FaEdit /> Alterar imagem
+            </label>
+          </div>
+        )}
         <FormMultiSelect
           placeholder="Plataformas..."
           options={platforms}
