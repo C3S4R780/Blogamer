@@ -1,0 +1,6 @@
+.post_content_editor {
+    width: 600px;
+    background-color: var(--white);
+    color: var(--black);
+    margin: 2em 0;
+}

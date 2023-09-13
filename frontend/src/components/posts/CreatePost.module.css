@@ -1,0 +1,52 @@
+.create_post {
+    transition: all .3s ease;
+    position: fixed;
+    bottom: 20px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--red);
+    font-size: 28px;
+    color: var(--white);
+    border: 3px solid var(--red);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.create_post svg {
+    transition: transform .3s ease;
+}
+.create_post.open {
+    z-index: 4;
+}
+.create_post.open svg {
+    transform: rotate(135deg);
+}
+.create_post:hover {
+    transform: scale(1.1);
+    background-color: var(--white);
+    color: var(--red);
+}
+.create_post:active {
+    transition: all .1s ease;
+    transform: scale(.9);
+}
+.create_post_modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+}
+.create_post_modal.open {
+    z-index: 3;
+    visibility: visible;
+    opacity: 1;
+}

@@ -1,15 +1,16 @@
 import {useState, useEffect} from 'react'
 import style from './Home.module.css'
 
+import { API } from '../../constant';
 import FilterSidebar from '../filter/FilterSidebar';
 import Posts from '../posts/Posts';
 
 function Home({ dark }) {
-  document.title = "Home - Blogamer"
+  document.title = "Blogamer"
   const [posts, setPosts] = useState()
 
   useEffect(() => {
-    fetch('http://localhost:1337/api/posts?populate=*', {
+    fetch(`${API}/posts?sort=id:DESC&populate=*`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

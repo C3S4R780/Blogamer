@@ -2,4 +2,11 @@
     text-align: center;
     color: var(--white);
     background-color: var(--black);
+    box-shadow: 0 -2px 4px rgba(0,0,0,.3);
+    margin-top: 2em;
+}
+.footer.hide {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
 }

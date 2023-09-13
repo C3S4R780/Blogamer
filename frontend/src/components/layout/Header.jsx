@@ -1,7 +1,40 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { useAuthContext } from "../../context/AuthContext";
+import { removeToken } from "../../helper";
 import style from './Header.module.css'
 
 function Header() {
+  const { user, setUser } = useAuthContext();
+  const navigate = useNavigate();
+  const location = useLocation()
+
+  const handleLogout = () => {
+    if (window.confirm("Deseja realmente sair ?")) {
+      removeToken()
+      setUser(undefined)
+      navigate("/login", { replace: true })
+    }
+  };
+
+  useEffect(() => {
+    const currentPage = location.pathname.split("/")[1]
+
+    setTimeout(() => {
+      document.querySelectorAll("header ul li a").forEach(link => {
+        const linkUrl = link.href.split("/")[3]
+
+        if (currentPage === linkUrl) {
+          link.classList.add(style.active)
+        } else {
+          link.classList.remove(style.active)
+        }
+
+      })
+    }, 100);
+
+  }, [location.pathname])
+
   return (
     <header className={style.header}>
       <div className={style.header_content}>
@@ -14,14 +47,25 @@ function Header() {
             <Link to={"/"}>Home</Link>
           </li>
           <li>
-            <Link to={"/plataformas"}>Plataformas</Link>
+            <Link to={"/platforms"}>Plataformas</Link>
           </li>
           <li>
-            <Link to={"/autores"}>Autores</Link>
+            <Link to={"/authors"}>Autores</Link>
           </li>
-          <li>
-            <Link to={"/login"}>Login</Link>
-          </li>
+          {user ? (
+            <>
+              <li>
+                <Link to="/profile">{user.username}</Link>
+              </li>
+              <li>
+                <button onClick={handleLogout}>Sair</button>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
         </ul>
       </div>
     </header>

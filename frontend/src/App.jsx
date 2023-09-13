@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import style from "./App.module.css"
 
+import AuthProvider from "./components/AuthProvider";
 import Home from "./components/pages/Home";
 import Post from "./components/pages/Post"
 import Login from "./components/pages/Login"
+import Profile from "./components/pages/Profile"
+import Platforms from "./components/pages/Platforms";
+import PageNotFound from "./components/pages/PageNotFound";
+import CreatePost from "./components/posts/CreatePost";
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer"
-import Platform from "./components/pages/Platform";
 
 import { FaCircleHalfStroke } from "react-icons/fa6"
 
@@ -17,10 +22,6 @@ function App() {
     localStorage.setItem('dark', JSON.stringify(false))
 
   const [dark, setDark] = useState(JSON.parse(localStorage.getItem('dark')))
-  const toggleDark = () => {
-    setDark(!dark)
-    // window.location.reload()
-  }
 
   useEffect(() => {
     localStorage.setItem('dark', JSON.stringify(dark))
@@ -29,24 +30,28 @@ function App() {
   }, [dark])
 
   return (
-    <Router>
-      <Header />
-      <main className={style.main_container}>
-        <button
-          onClick={toggleDark}
-          className={`${style.dark_btn} ${dark && style.dark}`}
-        >
+    <AuthProvider>
+      <Router>
+        <Header />
+        <main className={style.main_container}>
+          <Routes>
+            <Route path="/" element={<Home dark={dark} />} />
+            <Route path="/post/:postSlug" element={<Post />} />
+            <Route path="/platforms/" element={<Platforms dark={dark} />} />
+            <Route path="/platforms/:platformName" element={<Platforms dark={dark} />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:profileId" element={<Profile />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+        <button onClick={() => setDark(!dark)} className={`${style.dark_btn} ${dark && style.dark}`}>
           <FaCircleHalfStroke />
         </button>
-        <Routes>
-          <Route path="/" element={<Home dark={dark} />} />
-          <Route path="/post/:postId" element={<Post />} />
-          <Route path="/platform/:platformName" element={<Platform dark={dark} />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </main>
-      <Footer />
-    </Router>
+        <CreatePost dark={dark}/>
+      </Router>
+    </AuthProvider>
   );
 }
 
