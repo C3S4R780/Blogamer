@@ -41,7 +41,7 @@ function App() {
             <Route path="/platforms/:platformName" element={<Platforms dark={dark} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/:profileId" element={<Profile />} />
+            <Route path="/profile/:profileId" element={<Profile dark={dark} />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </main>

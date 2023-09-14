@@ -4,17 +4,19 @@ import { useAuthContext } from "../../context/AuthContext"
 import style from "./Profile.module.css"
 import { getToken } from "../../helper"
 import { API } from "../../constant"
+import Posts from "../posts/Posts"
 
-function Profile() {
+function Profile({dark}) {
     const navigate = useNavigate()
     const userToken = getToken()
     const { user } = useAuthContext()
     const { profileId } = useParams()
     const [profile, setProfile] = useState()
+    const [posts, setPosts] = useState([])
 
-    useEffect(() => {
+ /*   useEffect(() => {
         !userToken && navigate("/login", { replace: true })
-    })
+    })*/
 
     useEffect(() => {
         if (profileId) {
@@ -32,10 +34,23 @@ function Profile() {
         }
     }, [profileId, user])
 
+    useEffect(() => {
+        fetch(`${API}/posts?&populate=*&sort=id:DESC&filters[$and][0][author][id][$eq]=${profileId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(resp => resp.json())
+        .then(data => setPosts(data.data))
+        .catch(err => console.error(err))
+    }, [])
+
     return (
         <div className={style.profile}>
             <div className={style.profile_username}>
                 <h2>{profile?.username}</h2>
+                <Posts dark={dark} posts={posts}/>
             </div>
         </div>
     )
