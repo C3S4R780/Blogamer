@@ -113,3 +113,6 @@
     border: 4px solid var(--red);
     border-radius: 10px;
 }
+.post_content br {
+    display: none;
+}
