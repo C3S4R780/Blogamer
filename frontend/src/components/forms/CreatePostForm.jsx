@@ -128,7 +128,7 @@ function CreatePostForm({ dark, setOpen }) {
           type="file"
           name="thumbnail"
           text="Clique ou jogue a thumbnail aqui..."
-          accept="image/png, image/jpeg"
+          accept="image/*"
           inlineStyle={{ display: thumbnail && "none"}}
           onChange={setThumbnail}
         />
