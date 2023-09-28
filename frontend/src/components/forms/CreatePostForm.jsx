@@ -101,6 +101,15 @@ function CreatePostForm({ dark, setOpen }) {
       }
     }
   }
+  const exitPost = (e) => {
+      e.preventDefault()
+      console.log(e)
+      setOpen(false)
+      setThumbnail(false)
+      setSelectedPlatforms(false)
+      setContent("")
+      e.target.parentElement.parentElement.reset()
+  }
   return (
     <>
       <form autoComplete="off" className={`${style.create_post_form} ${dark && style.dark}`} onSubmit={handleSubmit}>
@@ -128,7 +137,7 @@ function CreatePostForm({ dark, setOpen }) {
           type="file"
           name="thumbnail"
           text="Clique ou jogue a thumbnail aqui..."
-          accept="image/png, image/jpeg"
+          accept="image/*"
           inlineStyle={{ display: thumbnail && "none"}}
           onChange={setThumbnail}
         />
@@ -160,10 +169,17 @@ function CreatePostForm({ dark, setOpen }) {
           value={content}
           required
         />
-        <FormButton
-          text="Publicar"
-          loading={isLoading}
-        />
+        <div className={style.form_control}>
+          <FormButton
+            text="Publicar"
+            loading={isLoading}
+          />
+          { <FormButton 
+            type="button"
+            text="Sair"
+            onClick={exitPost}
+          /> }
+        </div>  
       </form>
       <span className={style.create_post_form_overlay} onClick={() => setOpen(false)}></span>
     </>
