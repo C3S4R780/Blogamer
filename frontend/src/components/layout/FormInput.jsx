@@ -4,6 +4,7 @@ function FormInput({
     text=undefined,
     type,
     name,
+    id=undefined,
     value=undefined,
     accept=undefined,
     placeholder=undefined,
@@ -43,7 +44,7 @@ function FormInput({
             <input
                 type={type}
                 name={name}
-                id={name}
+                id={id}
                 required={required}
                 defaultValue={value}
                 accept={accept}
