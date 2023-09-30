@@ -1,19 +1,32 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import style from "./PostCard.module.css"
 
 import { FaArrowRight } from "react-icons/fa6"
 
 function PostCard({ post, dark }) {
+  const [thumbnail, setThumbnail] = useState(null)
   const postUrl = `/post/${post.attributes.slug}`
-  const thumbnail =
-    post.attributes.thumbnail.data ?
-    `http://localhost:1338${post.attributes.thumbnail.data.attributes.formats.small.url}` :
-    "/no-image.png"
+
+  useEffect(() => {
+    if (post.attributes.thumbnail?.data) {
+      fetch(`http://localhost:1338${post.attributes.thumbnail.data.attributes.formats.small.url}`)
+      .then(resp => {
+        if (resp.ok) {
+          setThumbnail(resp.url)
+        } else {
+          setThumbnail("/no-image.png")
+        }
+      })
+    }
+  }, [thumbnail, post.attributes.thumbnail.data])
 
   return (
     <div className={`${style.post_card} ${dark && style.dark}`}>
       <Link to={postUrl} className={style.post_card_img}>
-        <img src={thumbnail} alt={post.attributes.thumbnail.data?.attributes.alternativeText} />
+        {thumbnail && (
+          <img src={thumbnail} alt={post.attributes.thumbnail.data?.attributes.alternativeText} />
+        )}
       </Link>
       <div className={style.post_card_content}>
         <div className={style.post_card_platforms}>

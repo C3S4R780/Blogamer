@@ -12,12 +12,13 @@ import { FaArrowLeft } from 'react-icons/fa6'
 function Post() {
   const navigate = useNavigate()
   const [post, setPost] = useState([])
+  const [thumbnail, setThumbnail] = useState(null)
   const { postSlug } = useParams()
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`${API}/posts/${postSlug}?populate=*`, {
+        const response = await fetch(`${API}/posts/${postSlug}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json"
@@ -44,10 +45,16 @@ function Post() {
     fetchPost()
   }, [navigate, postSlug, post.title])
 
-  const thumbnail =
-    post.thumbnail?.data ?
-    `http://localhost:1338${post.thumbnail.data.attributes.url}` :
-    "/no-image.png"
+  if (post.thumbnail?.data) {
+    fetch(`http://localhost:1338${post.thumbnail.data.attributes.url}`)
+    .then(resp => {
+      if (resp.ok) {
+        setThumbnail(resp.url)
+      } else {
+        setThumbnail("/no-image.png")
+      }
+    })
+  }
 
   return (
     <div className={style.post_container}>
@@ -64,9 +71,11 @@ function Post() {
             <p>{post.excerpt}</p>
           </div>
         )}
-        <div className={style.post_thumbnail}>
-          <img src={thumbnail} alt={post.thumbnail?.data?.attributes.alternativeText} />
-        </div>
+        {thumbnail && (
+          <div className={style.post_thumbnail}>
+            <img src={thumbnail} alt={post.thumbnail?.data?.attributes.alternativeText} />
+          </div>
+        )}
         <div className={style.post_info}>
           <div className={style.post_platforms}>
             <h3>Plataformas:</h3>
