@@ -10,8 +10,7 @@ function CreatePost({ dark }) {
     const { user } = useAuthContext()
     const [open, setOpen] = useState(false)
 
-    // Temporary workaround until getting user roles/permissions
-    if (user && user?.id !== 6) {
+    if (user && user.role?.id !== 1) {
         return (
             <>
                 <button
