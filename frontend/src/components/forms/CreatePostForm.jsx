@@ -18,7 +18,7 @@ function CreatePostForm({ dark, setOpen }) {
   const authToken = getToken()
   const { user } = useAuthContext()
   const [platforms, setPlatforms] = useState()
-  const [selectedPlatforms, setSelectedPlatforms] = useState(null)
+  const [selectedPlatforms, setSelectedPlatforms] = useState([])
   const [content, setContent] = useState('')
   const [thumbnail, setThumbnail] = useState()
   const [isLoading, setIsLoading] = useState(false)
@@ -50,23 +50,24 @@ function CreatePostForm({ dark, setOpen }) {
       }
     })
     try {
-      const thumbData = new FormData()
-      thumbData.append('files', thumbnail['file'])
+      if (thumbnail) {
+        const thumbData = new FormData()
+        thumbData.append('files', thumbnail['file'])
 
-      const resp = await fetch(`${API}/upload`, {
-        method: "POST",
-        headers: {
-          "Authorization": `${BEARER} ${authToken}`
-        },
-        body: thumbData
-      })
+        const resp = await fetch(`${API}/upload`, {
+          method: "POST",
+          headers: {
+            "Authorization": `${BEARER} ${authToken}`
+          },
+          body: thumbData
+        })
 
-      const data = await resp.json()
+        const data = await resp.json()
+        if (data?.error)
+          throw data?.error
 
-      if (data?.error)
-        throw data?.error
-
-      postData['data']['thumbnail'] = data[0].id
+        postData['data']['thumbnail'] = data[0].id
+      }
 
     } catch (err) {
       console.error(err)

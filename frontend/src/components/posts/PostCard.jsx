@@ -19,7 +19,7 @@ function PostCard({ post, dark }) {
         }
       })
     }
-  }, [thumbnail, post.attributes.thumbnail.data])
+  }, [thumbnail, post.attributes.thumbnail?.data])
 
   return (
     <div className={`${style.post_card} ${dark && style.dark}`}>

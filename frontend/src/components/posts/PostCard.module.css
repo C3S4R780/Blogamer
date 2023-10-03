@@ -1,5 +1,5 @@
 .post_card {
-    transition: all .3s ease;
+    transition: box-shadow .3s ease;
     background-color: #FFF;
     border-radius: 6px;
     overflow: hidden;
