@@ -28,5 +28,15 @@ module.exports = plugin => {
         ctx.body = users.map(user => sanitizeOutput(user));
     };
 
+    plugin.controllers.user.findOne = async (ctx) => {
+        const { id } = ctx.params
+        const user = await strapi.db.query("plugin::users-permissions.user").findOne({
+            where: { slug: id },
+            populate: ['role']
+        })
+
+        ctx.body = user ? sanitizeOutput(user) : { notFound: true }
+    }
+
     return plugin;
   };

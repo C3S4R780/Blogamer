@@ -88,7 +88,7 @@ function Post() {
           <div className={style.post_author}>
             <h3>
               Por
-              <Link to={`/author/${post.author?.data?.attributes.slug}`}>
+              <Link to={`/profile/${post.author?.data?.attributes.slug}`}>
                 {post.author?.data?.attributes.username}
               </Link>
             </h3>
