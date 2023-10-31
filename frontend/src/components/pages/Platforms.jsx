@@ -1,40 +1,49 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { API } from '../../constant'
+
 import style from './Platforms.module.css'
+import FilterSidebar from '../filter/FilterSidebar'
 import PostCard from '../posts/PostCard'
 
-function Platform({ dark }) {
-  const [posts, setPlatform] = useState([])
-  const { platformName } = useParams()
+function Platforms({ dark }) {
+    const navigate = useNavigate()
+    const { platformName } = useParams()
+    const [posts, setPosts] = useState([])
 
-  useEffect(() => {
-    fetch(`${API}/posts?filters[$and][0][platforms][slug][$contains]=${platformName}&populate=*`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(resp => resp.json())
-    .then(data => setPlatform(data.data))
-    .then(() => {
-      document.title = platformName ? `Blogamer - ${platformName}` : "Carregando..."
-    })
-    .catch(err => console.error(err.message))
-  }, [platformName])
+    useEffect(() => {
+        if (!platformName) {
+            navigate('/platforms/pc', { replace:true })
+        }
 
-  return (
-    <div className={style.platform}>
-      <div className={style.platform_content}>
-        <h2>{platformName}</h2>
-        <div className={style.platform_posts}>
-          {posts.map(post => (
-            <PostCard key={post.id} post={post} dark={dark}/>
-          ))}
+        fetch(`${API}/posts?filters[$and][0][platforms][slug][$contains]=${platformName}&populate=*`)
+        .then(resp => resp.json())
+        .then(data => setPosts(data.data))
+        .then(() => {
+            document.title = platformName ? `Blogamer - ${platformName}` : "Carregando..."
+        })
+        .catch(err => console.error(err.message))
+    }, [platformName])
+
+    return (
+        <div className={style.platform}> 
+            <div className={style.platform_sidebar}>
+                <FilterSidebar active={platformName} dark={dark}/>
+            </div>
+            <div className={style.platform_content}>
+                <h2>{platformName}</h2>
+                {posts.length ? (
+                    <div className={style.platform_posts}>
+                        {posts.map(post => (
+                            <PostCard key={post.id} post={post} dark={dark}/>
+                        ))}
+                    </div>
+                ) : (
+                    <p>Nenhum post encontrado.</p>
+                )}
+            </div>
         </div>
-      </div>
-    </div>
-  )
+    )
 }
 
-export default Platform
+export default Platforms
