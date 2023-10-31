@@ -9,7 +9,7 @@ function PageNotFound() {
     const navigate = useNavigate()
     const [seconds, setSeconds] = useState(8)
     useEffect(() => {
-        seconds >= 0 ?
+        seconds > 0 ?
             setTimeout(() => setSeconds(seconds - 1), 1000)
         :
             navigate('/', { replace:true })
