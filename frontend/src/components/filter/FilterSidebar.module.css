@@ -27,7 +27,10 @@
     transition: margin .3s ease;
     text-decoration: none;
     color: inherit;
+    font-weight: bold;
 }
-.filter_sidebar_list li a:hover {
+.filter_sidebar_list li a:hover,
+.filter_sidebar_list li.active a {
+    color: var(--red);
     margin-left: 4px;
 }
