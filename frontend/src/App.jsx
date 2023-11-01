@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import style from "./App.module.css"
 
+import Home from "./pages/Home";
+import Post from "./pages/Post"
+import Login from "./pages/Login"
+import Profile from "./pages/Profile"
+import Platforms from "./pages/Platforms";
+import PageNotFound from "./pages/PageNotFound";
 import AuthProvider from "./components/AuthProvider";
-import Home from "./components/pages/Home";
-import Post from "./components/pages/Post"
-import Login from "./components/pages/Login"
-import Profile from "./components/pages/Profile"
-import Platforms from "./components/pages/Platforms";
-import PageNotFound from "./components/pages/PageNotFound";
 import CreatePost from "./components/posts/CreatePost";
 
 import Header from "./components/layout/Header";

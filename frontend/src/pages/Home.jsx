@@ -1,9 +1,9 @@
 import {useState, useEffect} from 'react'
 import style from './Home.module.css'
 
-import { API } from '../../constant';
-import FilterSidebar from '../filter/FilterSidebar';
-import Posts from '../posts/Posts';
+import { API } from '../constant';
+import FilterSidebar from '../components/filter/FilterSidebar';
+import Posts from '../components/posts/Posts';
 
 function Home({ dark }) {
   document.title = "Blogamer"

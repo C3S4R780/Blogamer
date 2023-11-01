@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { API } from '../../constant'
+import { API } from '../constant'
 
 import style from './Platforms.module.css'
-import FilterSidebar from '../filter/FilterSidebar'
-import PostCard from '../posts/PostCard'
+import FilterSidebar from '../components/filter/FilterSidebar'
+import PostCard from '../components/posts/PostCard'
 
 function Platforms({ dark }) {
     const navigate = useNavigate()

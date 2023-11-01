@@ -1,9 +1,9 @@
-import { useAuthContext } from "../../context/AuthContext"
+import { useAuthContext } from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
 import style from "./Login.module.css"
 
-import LoginForm from "../forms/LoginForm"
-import RegistrationForm from "../forms/RegistrationForm"
+import LoginForm from "../components/forms/LoginForm"
+import RegistrationForm from "../components/forms/RegistrationForm"
 
 function Login() {
   const navigate = useNavigate()

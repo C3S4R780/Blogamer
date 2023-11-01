@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { useAuthContext } from "../../context/AuthContext"
+import { useAuthContext } from "../context/AuthContext"
 import style from "./Profile.module.css"
-import { getToken } from "../../helper"
-import { API } from "../../constant"
-import Posts from "../posts/Posts"
+import { getToken } from "../helper"
+import { API } from "../constant"
+import Posts from "../components/posts/Posts"
 
 function Profile({ dark }) {
     const navigate = useNavigate()

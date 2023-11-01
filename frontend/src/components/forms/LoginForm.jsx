@@ -6,8 +6,8 @@ import { useAuthContext } from "../../context/AuthContext"
 import { setToken } from '../../helper'
 import { API } from "../../constant"
 
-import FormInput from '../layout/FormInput'
-import FormButton from '../layout/FormButton'
+import FormInput from '../inputs/FormInput'
+import FormButton from '../inputs/FormButton'
 
 function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)

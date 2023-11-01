@@ -2,14 +2,14 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import style from "./CreatePostForm.module.css"
 
-import FormInput from "../layout/FormInput"
-import PostContentEditor from "../layout/PostContentEditor"
-import FormButton from "../layout/FormButton"
+import FormInput from "../inputs/FormInput"
+import PostContentEditor from "../posts/PostContentEditor"
+import FormButton from "../inputs/FormButton"
 import { useAuthContext } from "../../context/AuthContext"
 
 import { API, BEARER } from "../../constant"
 import { getToken } from "../../helper"
-import FormMultiSelect from "../layout/FormMultiSelect"
+import FormMultiSelect from "../inputs/FormMultiSelect"
 
 import { FaEdit } from "react-icons/fa"
 

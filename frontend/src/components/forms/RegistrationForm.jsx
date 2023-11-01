@@ -6,8 +6,8 @@ import { useAuthContext } from "../../context/AuthContext"
 import { API } from "../../constant"
 import { setToken } from "../../helper"
 
-import FormInput from "../layout/FormInput"
-import FormButton from "../layout/FormButton"
+import FormInput from "../inputs/FormInput"
+import FormButton from "../inputs/FormButton"
 
 function RegistrationForm() {
   const navigate = useNavigate()
