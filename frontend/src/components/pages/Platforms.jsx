@@ -23,7 +23,7 @@ function Platforms({ dark }) {
             document.title = platformName ? `Blogamer - ${platformName}` : "Carregando..."
         })
         .catch(err => console.error(err.message))
-    }, [platformName])
+    }, [platformName, navigate])
 
     return (
         <div className={style.platform}> 
