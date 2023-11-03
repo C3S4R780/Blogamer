@@ -2,3 +2,10 @@
     display: flex;
     gap: 30px;
 }
+.home_content {
+    width: 100%;
+}
+.home_content button {
+    margin-top: 1.5em;
+    width: 100%;
+}

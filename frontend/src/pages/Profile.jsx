@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useAuthContext } from "../context/AuthContext"
-import style from "./Profile.module.css"
 import { getToken } from "../helper"
 import { API } from "../constant"
+
+import style from "./Profile.module.css"
 import Posts from "../components/posts/Posts"
+import FormButton from "../components/inputs/FormButton"
 
 function Profile({ dark }) {
     const navigate = useNavigate()
@@ -13,6 +15,10 @@ function Profile({ dark }) {
     const { profileSlug } = useParams()
     const [profile, setProfile] = useState(false)
     const [posts, setPosts] = useState([])
+    const [pagination, setPagination] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [page, setPage] = useState(1)
+    const pageSize = 2
 
     useEffect(() => {
         if (profileSlug === user?.slug) {
@@ -39,20 +45,27 @@ function Profile({ dark }) {
 
             setProfile(user)
         }
+    }, [navigate, profileSlug, user, userToken])
 
+    useEffect(() => setPage(1), [profile])
+
+    useEffect(() => {
         if (profile?.id) {
-            fetch(`${API}/posts?&populate=*&sort=id:DESC&filters[$and][0][author][id][$eq]=${profile?.id}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
+            fetch(`${API}/posts?&populate=*&sort=id:DESC&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[$and][0][author][id][$eq]=${profile?.id}`)
             .then(resp => resp.json())
-            .then(data => setPosts(data.data))
+            .then(data => {
+                if (page !== 1) {
+                    setPosts(postList => [...postList, ...data.data])
+                } else {
+                    setPosts(data.data)
+                }
+                setPagination(data.meta.pagination)
+            })
             .catch(err => console.error(err))
+            .finally(setIsLoading(false))
 
         }
-    }, [navigate, profileSlug, user, userToken, profile?.id])
+    }, [page, profile])
 
     return (
         <div className={style.profile}>
@@ -63,7 +76,16 @@ function Profile({ dark }) {
                         <button type="button">+ Seguir</button>
                     )}
                 </div>
-                <Posts dark={dark} posts={posts}/>
+                <div className={style.profile_posts}>
+                    <Posts dark={dark} posts={posts}/>
+                    {pagination.page < pagination.pageCount && (
+                    <FormButton
+                        text='Carregar mais posts'
+                        loading={isLoading}
+                        onClick={() => setPage(page+1)}
+                    />
+                )}
+                </div>
             </div>
         </div>
     )
