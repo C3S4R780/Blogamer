@@ -10,7 +10,10 @@ function PostCard({ post, dark }) {
 
   useEffect(() => {
     if (post.attributes.thumbnail?.data) {
-      fetch(`http://localhost:1338${post.attributes.thumbnail.data.attributes.formats.small.url}`)
+      const thumbData = post.attributes.thumbnail.data.attributes
+      const thumbUrl = thumbData.formats.medium?.url ?? thumbData.url
+
+      fetch(`http://localhost:1338${thumbUrl}`)
       .then(resp => {
         if (resp.ok) {
           setThumbnail(resp.url)
