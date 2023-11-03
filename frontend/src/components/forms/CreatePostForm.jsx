@@ -104,7 +104,6 @@ function CreatePostForm({ dark, setOpen }) {
   }
   const exitPost = (e) => {
       e.preventDefault()
-      console.log(e)
       setOpen(false)
       setThumbnail(false)
       setSelectedPlatforms(false)
