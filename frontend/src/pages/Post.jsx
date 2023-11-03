@@ -6,6 +6,7 @@ import { API } from '../constant'
 import style from './Post.module.css'
 
 import ShareSidebar from '../components/filter/ShareSidebar'
+import Comments from '../components/layout/Comments'
 
 import { FaArrowLeft } from 'react-icons/fa6'
 
@@ -102,6 +103,7 @@ function Post() {
                     <ShareSidebar />
                 </div>
             </div>
+            <Comments post={post.slug}/>
         </>
     )
 }

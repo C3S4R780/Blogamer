@@ -49,3 +49,25 @@
 .form_input label:has(input[type="file"]):hover {
     background-color: rgba(255,0,0,.2);
 }
+.form_input textarea {
+    transition: border-color .3s ease;
+    border: 2px solid lightgray;
+    border-radius: 6px;
+    padding: 10px;
+    outline: none;
+    resize: none;
+}
+.form_input textarea:focus,
+.form_input textarea:active {
+    border-color: var(--red);
+}
+.form_input .letter_counter {
+    text-align: right;
+    color: gray;
+    font-size: 14px;
+    margin: 5px 0;
+}
+body.dark .form_input textarea {
+    
+    color: inherit;
+}
