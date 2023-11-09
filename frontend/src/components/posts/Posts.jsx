@@ -2,10 +2,10 @@ import style from "./Posts.module.css"
 
 import PostCard from '../posts/PostCard';
 
-function Posts({ dark, posts }) {
+function Posts({ dark, posts, layout='' }) {
 
   return (
-    <div className={style.posts}>
+    <div className={`${style.posts} ${layout}`}>
 
       {posts === null && <p>Erro na requisição</p> }
       {posts?.length === 0 && <p>Nenhum post cadastrado</p> }
