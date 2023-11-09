@@ -17,6 +17,9 @@
     text-decoration: none;
     color: var(--white);
 }
+.post_card_thumb {
+    position: relative;
+}
 .post_card_img {
     display: flex;
     overflow: hidden;
@@ -36,6 +39,41 @@
     flex-direction: column;
     gap: 15px;
     padding: 10px 15px 20px;
+}
+.post_card_meta {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: calc(100% - 30px);
+    height: 40px;
+    padding: 0 15px 10px;
+    background-image: linear-gradient(0deg, #FFF 40%, transparent);
+}
+.post_card_meta_section {
+    position: relative;
+    display: flex;
+    gap: 10px;
+}
+.post_card_meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: inherit;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+}
+.post_card_meta span a {
+    color: inherit;
+    text-decoration: underline;
+}
+.post_card_meta span svg {
+    font-size: 18px;
+    color: var(--red);
+}
+.post_card.dark .post_card_meta {
+    background-image: linear-gradient(0deg, var(--dark-gray) 40%, transparent);
 }
 .post_card_platforms {
     display: flex;
