@@ -34,7 +34,7 @@ function PostCard({ post, dark }) {
       <div className={style.post_card_content}>
         <div className={style.post_card_platforms}>
           {post.attributes?.platforms && post.attributes.platforms.data.map(platform => (
-            <Link key={platform.id} to={`/platform/${platform.attributes.name}`}>
+            <Link key={platform.id} to={`/platforms/${platform.attributes.name}`}>
               {platform.attributes.name}
             </Link>
           ))}
