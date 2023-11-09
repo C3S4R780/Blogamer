@@ -13,8 +13,11 @@ module.exports = plugin => {
         const user = await strapi.entityService.findOne(
             'plugin::users-permissions.user',
             ctx.state.user.id,
-            { populate: ['role'] }
+            { populate: ['role', 'following', 'followers'] }
         );
+
+        user.following = user.following.map(x => sanitizeOutput(x))
+        user.followers = user.followers.map(x => sanitizeOutput(x))
 
         ctx.body = sanitizeOutput(user);
     };
@@ -22,18 +25,28 @@ module.exports = plugin => {
     plugin.controllers.user.find = async (ctx) => {
         const users = await strapi.entityService.findMany(
             'plugin::users-permissions.user',
-            { ...ctx.params, populate: ['role'] }
+            { ...ctx.params, populate: ['role', 'following', 'followers'] }
         );
+
+        users.map(user => {
+            user.following = user.following.map(x => sanitizeOutput(x))
+            user.followers = user.followers.map(x => sanitizeOutput(x))
+        })
 
         ctx.body = users.map(user => sanitizeOutput(user));
     };
 
     plugin.controllers.user.findOne = async (ctx) => {
         const { id } = ctx.params
+        const customFilter = Number(id) ? {id: id} : {slug: id}
+
         const user = await strapi.db.query("plugin::users-permissions.user").findOne({
-            where: { slug: id },
-            populate: ['role']
+            where: customFilter,
+            populate: ['role', 'following', 'followers']
         })
+
+        user.following = user.following.map(x => sanitizeOutput(x))
+        user.followers = user.followers.map(x => sanitizeOutput(x))
 
         ctx.body = user ? sanitizeOutput(user) : { notFound: true }
     }
