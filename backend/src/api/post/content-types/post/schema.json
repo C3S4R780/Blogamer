@@ -46,6 +46,12 @@
     "slug": {
       "type": "string",
       "unique": true
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "post"
     }
   }
 }
