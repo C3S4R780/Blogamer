@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { API } from '../../constant'
+import { useAuthContext } from "../../context/AuthContext"
 
 import style from './Comments.module.css'
 import CreateComment from '../forms/CreateComment'
+import FormButton from '../inputs/FormButton'
 
 function Comments({ post }) {
     const [comments, setComments] = useState([])
-
+    const { user } = useAuthContext()
     const getPostDate = (postDate) => {
         const parsedDate = new Date(postDate)
         return parsedDate.toLocaleString()
@@ -28,10 +30,18 @@ function Comments({ post }) {
                 <p>Deixe um comentário nos dizendo sua opinião sobre o post</p>
             </div>
 
-            <CreateComment post={post} comments={comments} setComments={setComments}/>
-
+            {user ? (
+                <CreateComment post={post} comments={comments} setComments={setComments}/>
+            ) : (
+                <div className={style.comments_logged_out}>
+                    <p>Para comentar, realize o login logo abaixo.</p>
+                    <Link to={`/login?redirect=/post/${post}`}>
+                        <FormButton text="Realizar Login"/>
+                    </Link>
+                </div>
+            )}
             {comments.length > 0 && (
-                <div id='comments' className={style.comments_list}>
+                <div className={style.comments_list}>
                     {comments.map(comment => (
                         <div key={comment.id} className={style.comments_list_item}>
                             <div className={style.comments_list_item_header}>

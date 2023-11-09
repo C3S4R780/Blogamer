@@ -62,3 +62,11 @@
     margin: 0;
     font-size: 18px;
 }
+.comments_logged_out {
+    text-align: center;
+    margin-top: 2em;
+}
+.comments_logged_out p {
+    font-size: 20px;
+    font-weight: bold;
+}
