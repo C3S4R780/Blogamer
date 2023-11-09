@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import style from "./RegistrationForm.module.css"
 
 import { useAuthContext } from "../../context/AuthContext"
@@ -12,6 +12,7 @@ import FormButton from "../inputs/FormButton"
 function RegistrationForm() {
   const navigate = useNavigate()
   const { setUser } = useAuthContext();
+  const [queryParameters] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
@@ -46,7 +47,11 @@ function RegistrationForm() {
 
         alert(`Bem-vindo(a) ao Blogamer ${data.user.username}!`)
 
-        navigate("/", { replace: true })
+        if (queryParameters.get('redirect')) {
+          navigate(`${queryParameters.get('redirect')}`, {replace: true})
+        } else {
+          navigate("/", { replace: true })
+        }
       }
 
     } catch (err) {
