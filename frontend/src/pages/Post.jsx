@@ -1,20 +1,27 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useAuthContext } from '../context/AuthContext';
 import { Markup } from 'react-render-markup';
 
-import { API } from '../constant'
+import { API, BEARER } from '../constant'
+import { getToken } from '../helper';
 import style from './Post.module.css'
 
 import ShareSidebar from '../components/filter/ShareSidebar'
 import Comments from '../components/layout/Comments'
 
-import { FaArrowLeft } from 'react-icons/fa6'
+import { FaArrowLeft, FaHeart, FaRegHeart } from "react-icons/fa6"
+import { BiSolidCommentDetail } from "react-icons/bi"
 
 function Post() {
     const navigate = useNavigate()
+    const userToken = getToken()
+    const { user } = useAuthContext()
+    const { postSlug } = useParams()
+    const [postId, setPostId] = useState()
     const [post, setPost] = useState([])
     const [thumbnail, setThumbnail] = useState(null)
-    const { postSlug } = useParams()
+    const [liked, setLiked] = useState(false)
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -34,6 +41,7 @@ function Post() {
 
                 } else {
                     setPost(data.data.attributes)
+                    setPostId(data.data.id)
                     document.title =`Blogamer - ${post.title}`
                 }
 
@@ -43,7 +51,50 @@ function Post() {
         }
 
         fetchPost()
-    }, [navigate, postSlug, post.title])
+    }, [navigate, postSlug, post.title, liked])
+
+    useEffect(() => {
+        user && setLiked(
+            user.user_likes?.filter(
+                likedPost => likedPost.slug === postSlug
+            ).length > 0
+        )
+    }, [user, postSlug])
+
+    const scrollToComments = () => {
+        document.querySelector('#comments').scrollIntoView()
+        document.querySelector('#comments textarea')?.focus()
+    }
+
+    const toggleLike = (e) => {
+        e.preventDefault()
+
+        if (!user) return navigate(`/login?redirect=/post/${postSlug}`)
+
+        fetch(`${API}/users/${user.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${BEARER} ${userToken}`
+            },
+            body: JSON.stringify({
+                'user_likes': !liked ? [
+                    ...user.user_likes.map(like => { return like.id }),
+                    postId
+                ] : [
+                    ...user.user_likes.filter(like => like.id !== postId)
+                ]
+            })
+        })
+        .then(resp => {
+            if (resp.ok) window.location.reload()
+            else {
+                alert(resp)
+                console.error(resp)
+            }
+        })
+        .catch(err => console.error(err))
+    }
 
     if (post.thumbnail?.data) {
         fetch(`http://localhost:1338${post.thumbnail.data.attributes.url}`)
@@ -78,21 +129,33 @@ function Post() {
                         </div>
                     )}
                     <div className={style.post_info}>
-                        <div className={style.post_platforms}>
-                            <h3>Plataformas:</h3>
-                            {post.platforms && post.platforms?.data.map(platform => (
-                                <Link key={`platforms-${platform.id}`} to={`/platforms/${platform.attributes.name}`}>
-                                    {platform.attributes.name}
-                                </Link>
-                            ))}
+                        <div>
+                            <div className={style.post_platforms}>
+                                <h3>Plataformas:</h3>
+                                {post.platforms && post.platforms?.data.map(platform => (
+                                    <Link key={`platforms-${platform.id}`} to={`/platforms/${platform.attributes.name}`}>
+                                        {platform.attributes.name}
+                                    </Link>
+                                ))}
+                            </div>
+                            <div className={style.post_author}>
+                                <h3>
+                                    Por
+                                    <Link to={`/profile/${post.author?.data?.attributes.slug}`}>
+                                        {post.author?.data?.attributes.username}
+                                    </Link>
+                                </h3>
+                            </div>
                         </div>
-                        <div className={style.post_author}>
-                            <h3>
-                                Por
-                                <Link to={`/profile/${post.author?.data?.attributes.slug}`}>
-                                    {post.author?.data?.attributes.username}
-                                </Link>
-                            </h3>
+                        <div className={`${style.post_meta} ${liked && style.post_liked}`}>
+                            <button onClick={toggleLike}>
+                                {post.post_likes?.data.length}
+                                {liked ? <FaHeart /> : <FaRegHeart />}
+                            </button>
+                            <button onClick={scrollToComments}>
+                                {post.comments?.data.length}
+                                <BiSolidCommentDetail />
+                            </button>
                         </div>
                     </div>
                     <div className={style.post_content}>

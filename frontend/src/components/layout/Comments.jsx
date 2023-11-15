@@ -22,7 +22,7 @@ function Comments({ post }) {
     }, [post])
 
     return (
-        <div className={style.comments}>
+        <div className={style.comments} id="comments">
             <div className={style.comments_text}>
                 <h2>
                     {comments.length ? 'Comentarios' : 'Seja o primeiro a comentar!'}

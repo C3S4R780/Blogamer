@@ -48,7 +48,7 @@ function PostCard({ post, dark }) {
             <span>{getPostDate(post.attributes.createdAt)}</span>
           </div>
           <div className={style.post_card_meta_section}>
-            <span>0<FaHeart /></span>
+            <span>{post.attributes.post_likes.data.length}<FaHeart /></span>
             <span>{post.attributes.comments.data.length}<BiSolidCommentDetail /></span>
           </div>
         </div>

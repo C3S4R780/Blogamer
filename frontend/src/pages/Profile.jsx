@@ -12,15 +12,22 @@ import Follows from "../components/users/Follows"
 function Profile({ dark }) {
     const navigate = useNavigate()
     const userToken = getToken()
+    const pageSize = 3
+
     const { user } = useAuthContext()
     const { profileSlug } = useParams()
     const [profile, setProfile] = useState(false)
     const [following, setFollowing] = useState(false)
+
     const [posts, setPosts] = useState([])
-    const [pagination, setPagination] = useState([])
+    const [postPagination, setPostPagination] = useState([])
+    const [postPage, setPostPage] = useState(1)
+
+    const [likedPosts, setLikedPosts] = useState([])
+    const [likedPagination, setLikedPagination] = useState([])
+    const [likedPage, setLikedPage] = useState(1)
+
     const [isLoading, setIsLoading] = useState(true)
-    const [page, setPage] = useState(1)
-    const pageSize = 3
 
     useEffect(() => {
         if (profileSlug === user?.slug) {
@@ -51,25 +58,41 @@ function Profile({ dark }) {
         }
     }, [navigate, profileSlug, user, userToken, following])
 
-    useEffect(() => setPage(1), [profile])
+    useEffect(() => {
+        setPostPage(1)
+        setLikedPage(1)
+    }, [profile])
 
     useEffect(() => {
         if (profile?.id) {
-            fetch(`${API}/posts?&populate=*&sort=id:DESC&pagination[page]=${page}&pagination[pageSize]=${pageSize}&filters[$and][0][author][id][$eq]=${profile?.id}`)
+            fetch(`${API}/posts?&populate=*&sort=id:DESC&pagination[page]=${postPage}&pagination[pageSize]=${pageSize}&filters[$and][0][author][id][$eq]=${profile?.id}`)
             .then(resp => resp.json())
             .then(data => {
-                if (page !== 1) {
+                if (postPage !== 1) {
                     setPosts(postList => [...postList, ...data.data])
                 } else {
                     setPosts(data.data)
                 }
-                setPagination(data.meta.pagination)
+                setPostPagination(data.meta.pagination)
+            })
+            .catch(err => console.error(err))
+            .finally(setIsLoading(false))
+
+            fetch(`${API}/posts?&populate=*&sort=id:DESC&pagination[page]=${likedPage}&pagination[pageSize]=${pageSize}&filters[$and][0][post_likes][id][$eq]=${profile?.id}`)
+            .then(resp => resp.json())
+            .then(data => {
+                if (likedPage !== 1) {
+                    setLikedPosts(likedPostList => [...likedPostList, ...data.data])
+                } else {
+                    setLikedPosts(data.data)
+                }
+                setLikedPagination(data.meta.pagination)
             })
             .catch(err => console.error(err))
             .finally(setIsLoading(false))
 
         }
-    }, [page, profile])
+    }, [postPage, likedPage, profile])
 
     const getUserDate = (userDate) => {
         const parsedDate = new Date(userDate)
@@ -111,15 +134,28 @@ function Profile({ dark }) {
                 </div>
             </div>
             <div className={style.profile_posts}>
-                <h2>Posts recentes:</h2>
-                <Posts dark={dark} posts={posts} layout={style.profile_post_card}/>
-                {pagination.page < pagination.pageCount && (
-                <FormButton
-                    text='Carregar mais posts'
-                    loading={isLoading}
-                    onClick={() => setPage(page+1)}
-                />
-            )}
+                <div className={style.profile_posts_recent}>
+                    <h2>Posts recentes:</h2>
+                    <Posts dark={dark} posts={posts} layout={style.profile_post_card}/>
+                    {postPagination.page < postPagination.pageCount && (
+                        <FormButton
+                            text='Carregar mais posts'
+                            loading={isLoading}
+                            onClick={() => setPostPage(postPage+1)}
+                        />
+                    )}
+                </div>
+                <div className={style.profile_posts_liked}>
+                    <h2>Posts favoritos:</h2>
+                    <Posts dark={dark} posts={likedPosts} layout={style.profile_post_card}/>
+                    {likedPagination.page < likedPagination.pageCount && (
+                        <FormButton
+                            text='Carregar mais posts'
+                            loading={isLoading}
+                            onClick={() => setLikedPage(likedPage+1)}
+                        />
+                    )}
+                </div>
             </div>
         </div>
     )

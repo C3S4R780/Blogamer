@@ -60,6 +60,10 @@
     margin-top: 1.5em;
     width: 100%;
 }
+.profile_posts_liked {
+    margin-top: 2em;
+    border-top: 1px solid #808080;
+}
 
 .profile_post_card {
     grid-template-columns: repeat(3, 1fr);
