@@ -69,6 +69,24 @@
       "type": "string",
       "unique": true,
       "configurable": false
+    },
+    "following": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "followers"
+    },
+    "followers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "following"
+    },
+    "user_likes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::post.post",
+      "mappedBy": "post_likes"
     }
   }
 }

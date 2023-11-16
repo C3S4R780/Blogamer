@@ -46,6 +46,18 @@
     "slug": {
       "type": "string",
       "unique": true
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "post"
+    },
+    "post_likes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_likes"
     }
   }
 }

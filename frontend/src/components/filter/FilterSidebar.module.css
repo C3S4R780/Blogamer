@@ -18,7 +18,7 @@
     margin: 0;
     list-style: none;
 }
-.filter_sidebar_list li {
+.filter_sidebar_list li:not(:last-child) {
     border-bottom: 1px solid rgba(150,150,150,.2);
     padding-bottom: 10px;
     margin-bottom: 10px;
@@ -27,7 +27,10 @@
     transition: margin .3s ease;
     text-decoration: none;
     color: inherit;
+    font-weight: bold;
 }
-.filter_sidebar_list li a:hover {
+.filter_sidebar_list li a:hover,
+.filter_sidebar_list li.active a {
+    color: var(--red);
     margin-left: 4px;
 }

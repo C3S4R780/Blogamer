@@ -1,18 +1,19 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import style from "./LoginForm.module.css"
 
 import { useAuthContext } from "../../context/AuthContext"
 import { setToken } from '../../helper'
 import { API } from "../../constant"
 
-import FormInput from '../layout/FormInput'
-import FormButton from '../layout/FormButton'
+import FormInput from '../inputs/FormInput'
+import FormButton from '../inputs/FormButton'
 
 function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const { setUser } = useAuthContext()
+  const [queryParameters] = useSearchParams()
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -45,7 +46,11 @@ function LoginForm() {
         setToken(data.jwt)
         setUser(data.user)
 
-        navigate("/", { replace: true })
+        if (queryParameters.get('redirect')) {
+          navigate(`${queryParameters.get('redirect')}`, {replace: true})
+        } else {
+          navigate("/", { replace: true })
+        }
       }
 
     } catch (err) {

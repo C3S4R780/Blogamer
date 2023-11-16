@@ -1,0 +1,9 @@
+.new_comment label {
+    margin-bottom: 15px !important;
+}
+.new_comment textarea {
+    font-size: 18px;
+}
+.new_comment button {
+    width: 100%;
+}

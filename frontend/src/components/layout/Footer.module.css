@@ -4,6 +4,7 @@
     background-color: var(--black);
     box-shadow: 0 -2px 4px rgba(0,0,0,.3);
     margin-top: 2em;
+    padding: 2em 0;
 }
 .footer.hide {
     display: none;

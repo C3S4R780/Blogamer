@@ -2,14 +2,14 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import style from "./CreatePostForm.module.css"
 
-import FormInput from "../layout/FormInput"
-import PostContentEditor from "../layout/PostContentEditor"
-import FormButton from "../layout/FormButton"
+import FormInput from "../inputs/FormInput"
+import PostContentEditor from "../posts/PostContentEditor"
+import FormButton from "../inputs/FormButton"
 import { useAuthContext } from "../../context/AuthContext"
 
 import { API, BEARER } from "../../constant"
 import { getToken } from "../../helper"
-import FormMultiSelect from "../layout/FormMultiSelect"
+import FormMultiSelect from "../inputs/FormMultiSelect"
 
 import { FaEdit } from "react-icons/fa"
 
@@ -18,7 +18,7 @@ function CreatePostForm({ dark, setOpen }) {
   const authToken = getToken()
   const { user } = useAuthContext()
   const [platforms, setPlatforms] = useState()
-  const [selectedPlatforms, setSelectedPlatforms] = useState(null)
+  const [selectedPlatforms, setSelectedPlatforms] = useState([])
   const [content, setContent] = useState('')
   const [thumbnail, setThumbnail] = useState()
   const [isLoading, setIsLoading] = useState(false)
@@ -50,23 +50,24 @@ function CreatePostForm({ dark, setOpen }) {
       }
     })
     try {
-      const thumbData = new FormData()
-      thumbData.append('files', thumbnail['file'])
+      if (thumbnail) {
+        const thumbData = new FormData()
+        thumbData.append('files', thumbnail['file'])
 
-      const resp = await fetch(`${API}/upload`, {
-        method: "POST",
-        headers: {
-          "Authorization": `${BEARER} ${authToken}`
-        },
-        body: thumbData
-      })
+        const resp = await fetch(`${API}/upload`, {
+          method: "POST",
+          headers: {
+            "Authorization": `${BEARER} ${authToken}`
+          },
+          body: thumbData
+        })
 
-      const data = await resp.json()
+        const data = await resp.json()
+        if (data?.error)
+          throw data?.error
 
-      if (data?.error)
-        throw data?.error
-
-      postData['data']['thumbnail'] = data[0].id
+        postData['data']['thumbnail'] = data[0].id
+      }
 
     } catch (err) {
       console.error(err)
@@ -101,6 +102,14 @@ function CreatePostForm({ dark, setOpen }) {
       }
     }
   }
+  const exitPost = (e) => {
+      e.preventDefault()
+      setOpen(false)
+      setThumbnail(false)
+      setSelectedPlatforms(false)
+      setContent("")
+      e.target.parentElement.parentElement.reset()
+  }
   return (
     <>
       <form autoComplete="off" className={`${style.create_post_form} ${dark && style.dark}`} onSubmit={handleSubmit}>
@@ -128,7 +137,7 @@ function CreatePostForm({ dark, setOpen }) {
           type="file"
           name="thumbnail"
           text="Clique ou jogue a thumbnail aqui..."
-          accept="image/png, image/jpeg"
+          accept="image/*"
           inlineStyle={{ display: thumbnail && "none"}}
           onChange={setThumbnail}
         />
@@ -160,10 +169,17 @@ function CreatePostForm({ dark, setOpen }) {
           value={content}
           required
         />
-        <FormButton
-          text="Publicar"
-          loading={isLoading}
-        />
+        <div className={style.form_control}>
+          <FormButton
+            text="Publicar"
+            loading={isLoading}
+          />
+          { <FormButton 
+            type="button"
+            text="Sair"
+            onClick={exitPost}
+          /> }
+        </div>  
       </form>
       <span className={style.create_post_form_overlay} onClick={() => setOpen(false)}></span>
     </>

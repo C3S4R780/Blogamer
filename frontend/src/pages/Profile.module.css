@@ -1,0 +1,70 @@
+.profile_header {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+}
+.profile_header button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+}
+.profile_header button span {
+    display: contents;
+}
+.profile_header_info {
+    line-height: 1.5;
+}
+.profile_header_info h1 {
+    margin: 0;
+}
+.profile_header_info a {
+    color: var(--blue);
+}
+.profile_follow {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1em;
+    padding: 5px 0;
+}
+.profile_follow_count {
+    display: flex;
+    gap: 10px;
+}
+.profile_follow_count span:first-child {
+    position: relative;
+    padding-right: 10px;
+}
+.profile_follow_count span:first-child::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #bbb;
+}
+.profile_posts {
+    margin-top: 1.5em;
+    border-top: 1px solid #808080;
+}
+.profile_posts h2 {
+    margin: 1em 0;
+}
+.profile_posts button {
+    margin-top: 1.5em;
+    width: 100%;
+}
+.profile_posts_liked {
+    margin-top: 2em;
+    border-top: 1px solid #808080;
+}
+
+.profile_post_card {
+    grid-template-columns: repeat(3, 1fr);
+}

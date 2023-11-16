@@ -41,3 +41,9 @@
 .thumbnail_preview label:hover {
     color: var(--red)
 }
+.form_control {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: row-reverse;
+}

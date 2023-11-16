@@ -17,6 +17,10 @@
   background-color: var(--red);
   border-radius: 100px
 }
+::selection {
+  background-color: var(--red);
+  color: var(--white);
+}
 html, body {
   scroll-behavior: smooth;
 }

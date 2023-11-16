@@ -4,10 +4,10 @@ import { useLocation } from "react-router-dom";
 function Footer() {
   const location = useLocation()
   const hide = location.pathname === "/login" ? true : false
-
+  const dataAtual = new Date();  
   return (
     <footer className={`${style.footer} ${hide && style.hide}`}>
-      Footer
+      Copyright&copy; Antonio Marques e Cesar Santos - {dataAtual.getFullYear()}
     </footer>
   )
 }
